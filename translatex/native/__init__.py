@@ -50,8 +50,7 @@ def load(data, path, type):
     with TemporaryDirectory() as name:
         file = join(name, 'data')
         # convert
-        with open('./cache', 'w') as f:
-        #with open(file, 'w') as f:
+        with open(file, 'w') as f:
             dump(data, f)
         # import
         call([program(), 

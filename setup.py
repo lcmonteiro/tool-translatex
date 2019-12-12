@@ -32,7 +32,7 @@ setup(
         'translatex.native': ['TranslateXml', 'TranslateXml.exe']
     },
     install_requires=[
-        'translate'
+        'googletrans'
     ],
     entry_points={
       'console_scripts': [
