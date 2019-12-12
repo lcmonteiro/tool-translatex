@@ -1,2 +1,2 @@
 # tool-translatex
-translate canoe simulation
+XML translator for vector/canoe simulation 
