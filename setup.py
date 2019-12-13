@@ -17,7 +17,7 @@ with open("README.md", "r") as fh:
 # setup
 # -----------------------------------------------------------------------------
 setup(
-    name='tranlatex',  
+    name='translatex',  
     version='0.3',
     author="Luis Monteiro",
     author_email="monteiro.lcm@gmail.com",
@@ -32,11 +32,12 @@ setup(
         'translatex.native': ['TranslateXml', 'TranslateXml.exe']
     },
     install_requires=[
-        'googletrans'
+        'googletrans',
+        'translate'
     ],
     entry_points={
       'console_scripts': [
-          'translatex    = translatex:main_translate',
+          'translatex = translatex:main_translate',
       ]
     }
  )

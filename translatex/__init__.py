@@ -9,13 +9,7 @@
 # ---------------------------------------------------------
 # extern
 # ---------------------------------------------------------
-from git.cmd  import Git
-from git.exc  import GitCommandError
-from sys      import argv
 from argparse import ArgumentParser
-from tempfile import TemporaryFile
-from shutil   import copyfileobj as copy
-from filecmp  import cmp         as equal
 # ---------------------------------------------------------
 # internal
 # ---------------------------------------------------------
@@ -57,7 +51,8 @@ def split(text, max_size):
 # translate text
 # -----------------------------------------------------------------------------
 def translate(data, dst='en', src='auto'):
-    from googletrans import Translator
+    #from googletrans import Translator
+    from translate   import Translator
     from random      import randint
     from time        import sleep
     generator  = fibonacci()
