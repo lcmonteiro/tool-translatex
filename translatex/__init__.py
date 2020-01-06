@@ -50,13 +50,12 @@ def split(text, max_size):
 # -----------------------------------------------------------------------------
 # translate text
 # -----------------------------------------------------------------------------
-def translate(data, dst='en', src='auto'):
-    #from googletrans import Translator
-    from translate   import Translator
+def translate(data, dst='en', src='de'):
+    from .translator import Translator
     from random      import randint
     from time        import sleep
     generator  = fibonacci()
-    translator = Translator()
+    translator = Translator(dst, src)
     result     = []
     # preprocessing  
     data = map(lambda x: x.replace('_', ' '), data)
@@ -64,15 +63,14 @@ def translate(data, dst='en', src='auto'):
     for chunk in split(data, 1000):
         while True:
             try:
-                print(chunk)
-                for item in translator.translate(chunk, dest=dst, src=src):
-                    print(item.text)
-                    result.append(item.text)
+                for item in translator.translate(chunk):
+                    print(item)
+                    result.append(item)
                 break
             except Exception as ex:
                 print('error::{}'.format(str(ex)))
                 print('sleep::translation failed ...')
-                translator = Translator()
+                translator = Translator(dst, src)
                 sleep(randint(10, next(generator)))
     return result
 # -----------------------------------------------------------------------------
