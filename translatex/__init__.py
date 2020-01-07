@@ -51,7 +51,7 @@ def split(text, max_size):
 # translate text
 # -----------------------------------------------------------------------------
 def translate(data, dst='en', src='de'):
-    from .translator import Translator
+    from gtranslate  import Translator
     from random      import randint
     from time        import sleep
     generator  = fibonacci()

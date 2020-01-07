@@ -1,5 +1,7 @@
-/build
-/dist
-/data
-*egg*
+# folders 
+translatex.egg-info/*
+build/*
+data/*
+# files
+*.egg
 *.pyc
