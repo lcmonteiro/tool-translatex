@@ -32,10 +32,8 @@ setup(
         'translatex.native': ['TranslateXml', 'TranslateXml.exe']
     },
     install_requires=[
-        'gtranslate>=0.1',
-    ],
-    dependency_links=[
-        'https://github.com/lcmonteiro/tool-gtranslate/tarball/master/#egg=gtranslate-1.0'
+        'progress',
+        'gtranslate @ https://github.com/lcmonteiro/tool-gtranslate/tarball/master/#egg=gtranslate',
     ],
     entry_points={
       'console_scripts': [

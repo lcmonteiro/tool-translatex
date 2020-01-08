@@ -34,6 +34,7 @@ def extract(path, type):
         # export
         call([program(), 
             '-m','export', 
+            '-l','INFO', 
             '-i', path, 
             '-o', file,
             '-p', type])
@@ -54,7 +55,8 @@ def load(data, path, type):
             dump(data, f)
         # import
         call([program(), 
-            '-m', 'import', 
+            '-m','import', 
+            '-l','INFO', 
             '-i', file,
             '-o', path, 
             '-p', type])

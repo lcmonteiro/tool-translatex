@@ -50,45 +50,46 @@ def split(text, max_size):
 # -----------------------------------------------------------------------------
 # translate text
 # -----------------------------------------------------------------------------
-def translate(data, dst='en', src='de'):
-    from gtranslate  import Translator
-    from random      import randint
-    from time        import sleep
+def translate(data, from_lang='en', to_lang='de'):
+    from gtranslate   import Translator
+    from random       import randint
+    from time         import sleep
+    from progress.bar import Bar
     generator  = fibonacci()
-    translator = Translator(dst, src)
+    translator = Translator(to_lang, from_lang)
     result     = []
     # preprocessing  
     data = map(lambda x: x.replace('_', ' '), data)
+    # split in to chunks
+    data = split(data, 1000)
     # translate
-    for chunk in split(data, 1000):
+    bar = Bar('translating', max=len(data))
+    for chunk in data:
+        bar.next()
         while True:
             try:
                 for item in translator.translate(chunk):
-                    print(item)
                     result.append(item)
                 break
             except Exception as ex:
                 print('error::{}'.format(str(ex)))
                 print('sleep::translation failed ...')
-                translator = Translator(dst, src)
+                translator = Translator(to_lang, from_lang)
                 sleep(randint(10, next(generator)))
+    bar.finish()
     return result
 # -----------------------------------------------------------------------------
 # translate process
 # -----------------------------------------------------------------------------
-def translate_process(path, type):
-    print("tranlate --type={} {}".format(type, path))
+def translate_process(path, schema, from_lang, to_lang):
+    print("tranlate --schema={} {}".format(schema, path))
     try:
         # extract data
-        data = extract(path, type)
-
-        
+        data = extract(path, schema)
         # translate data
-        data = translate(data)
-        print(len(data))
-        print(data)
+        data = translate(data, from_lang, to_lang)
         # load data
-        load(data, path, type)
+        load(data, path, schema)
     except Exception as ex:
         print(str(ex))
     return 0
@@ -107,11 +108,18 @@ def main_translate(args=None):
         type    = str, 
         nargs   = '?',
         default = '.')
-    parser.add_argument('--type', '-t',
+    parser.add_argument('--scheme', '-s',
         type    = str, 
         default = 'canoe')
+    parser.add_argument('--from-lang', '-f',
+        type    = str, 
+        default = 'auto')
+    parser.add_argument('--to-lang',  '-t',
+        type    = str, 
+        default = 'en')
     args = parser.parse_args(args=args)
-    return translate_process(args.path, args.type)
+    return translate_process(
+        args.path, args.scheme, args.from_lang, args.to_lang)
 # -------------------------------------------------------------------
 # main file
 # -------------------------------------------------------------------    
