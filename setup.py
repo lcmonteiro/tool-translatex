@@ -32,7 +32,7 @@ setup(
         'translatex.native': ['TranslateXml', 'TranslateXml.exe']
     },
     install_requires=[
-        'progress',
+        'progressbar2',
         'gtranslate @ https://github.com/lcmonteiro/tool-gtranslate/tarball/master/#egg=gtranslate',
     ],
     entry_points={

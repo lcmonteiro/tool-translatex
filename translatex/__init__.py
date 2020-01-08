@@ -54,18 +54,14 @@ def translate(data, from_lang='en', to_lang='de'):
     from gtranslate   import Translator
     from random       import randint
     from time         import sleep
-    from progress.bar import Bar
+    from progressbar  import progressbar
     generator  = fibonacci()
     translator = Translator(to_lang, from_lang)
     result     = []
     # preprocessing  
     data = map(lambda x: x.replace('_', ' '), data)
-    # split in to chunks
-    data = split(data, 1000)
     # translate
-    bar = Bar('translating', max=len(data))
-    for chunk in data:
-        bar.next()
+    for chunk in progressbar(split(data, 1000), prefix='translating | '):
         while True:
             try:
                 for item in translator.translate(chunk):
@@ -76,7 +72,6 @@ def translate(data, from_lang='en', to_lang='de'):
                 print('sleep::translation failed ...')
                 translator = Translator(to_lang, from_lang)
                 sleep(randint(10, next(generator)))
-    bar.finish()
     return result
 # -----------------------------------------------------------------------------
 # translate process
